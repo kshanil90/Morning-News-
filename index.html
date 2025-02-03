@@ -1,1 +1,27 @@
-<h1>Hello</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSS Feed Site</title>
+</head>
+<body>
+  <h1>RSS Feed Site</h1>
+  <ul id="rss-feeds"></ul>
+  <script>
+    fetch('https://rss.app/feeds/bbc-news/rss.xml')
+      .then(response => response.text())
+      .then(str => new window.DOMParser().parseFromString(str, 'text/xml'))
+      .then(data => {
+        const items = data.querySelectorAll('item');
+        const list = document.getElementById('rss-feeds');
+        items.forEach(item => {
+          const title = item.querySelector('title').textContent;
+          const link = item.querySelector('link').textContent;
+          const description = item.querySelector('description').textContent;
+          list.innerHTML += `<li><a href="${link}">${title}</a>: ${description}</li>`;
+        });
+      });
+  </script>
+</body>
+</html>
