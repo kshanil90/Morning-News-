@@ -9,7 +9,7 @@
   <h1>RSS Feed Site</h1>
   <ul id="rss-feeds"></ul>
   <script>
-    fetch('https://rss.app/feeds/bbc-news/rss.xml')
+    fetch('https://feeds.bbci.co.uk/news/rss.xml')
       .then(response => response.text())
       .then(str => new window.DOMParser().parseFromString(str, 'text/xml'))
       .then(data => {
